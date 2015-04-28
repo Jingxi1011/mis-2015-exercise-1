@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-
+import android.view.View;
 
 public class BrokenActivity extends Activity {
 
+    public static final String EXTRA_MESSAGE = "hello";
     private EditText auntEdith;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broken);
-        EditText auntEdit = (EditText)findViewById(R.id.edittext);
+        auntEdith = (EditText)findViewById(R.id.edittext);
     }
 
 
@@ -39,8 +40,7 @@ public class BrokenActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void brokenFunction(){
-        //I was once, perhaps, possibly a functioning function
+    public void brokenFunction(View v){
         if (auntEdith.getText().toString().equals("Timmy")){
             System.out.println("Timmy fixed a bug!");
         }

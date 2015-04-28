@@ -6,16 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import mmbuw.com.brokenproject.R;
 
@@ -28,8 +21,6 @@ public class AnotherBrokenActivity extends Activity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(BrokenActivity.EXTRA_MESSAGE);
-        //What happens here? What is this? It feels like this is wrong.
-        //Maybe the weird programmer who wrote this forgot to do something?
 
     }
 
@@ -53,35 +44,37 @@ public class AnotherBrokenActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void fetchHTML(View view) throws IOException {
+    public class MainActivity extends Activity {
 
-        //According to the exercise, you will need to add a button and an EditText first.
-        //Then, use this function to call your http requests
-        //Following hints:
-        //Android might not enjoy if you do Networking on the main thread, but who am I to judge?
-        //An app might not be allowed to access the internet without the right (*hinthint*) permissions
-        //Below, you find a staring point for your HTTP Requests - this code is in the wrong place and lacks the allowance to do what it wants
-        //It will crash if you just un-comment it.
+        private EditText edtURL;
+        private EditText edtHTTP;
+        private Button btnRequest;
 
-        /*
-        Beginning of helper code for HTTP Request.
+        private String strURL;
 
-        HttpClient client = new DefaultHttpClient();
-        HttpResponse response = client.execute(new HttpGet("http://lmgtfy.com/?q=android+ansync+task"));
-        StatusLine status = response.getStatusLine();
-        if (status.getStatusCode() == HttpStatus.SC_OK){
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-            response.getEntity().writeTo(outStream);
-            String responseAsString = outStream.toString();
-             System.out.println("Response string: "+responseAsString);
-        }else {
-            //Well, this didn't work.
-            response.getEntity().getContent().close();
-            throw new IOException(status.getReasonPhrase());
+        private MyTask myTask;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_another_broken);
+
+            edtURL = (EditText) findViewById(R.id.edturl);
+            edtHTTP = (EditText) findViewById(R.id.edthttp);
+            btnRequest = (Button) findViewById(R.id.requesthtml);
+
+            btnRequest.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (!(strURL = edtURL.getText().toString()).equals("")) {
+
+                        myTask = new MyTask(edtHTTP);
+                        myTask.execute(strURL);
+                    }
+
+                }
+            });
         }
-
-          End of helper code!
-
-                  */
     }
 }
