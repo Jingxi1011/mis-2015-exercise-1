@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import mmbuw.com.brokenproject.R;
 
 public class AnotherBrokenActivity extends Activity {
